@@ -1,9 +1,10 @@
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import { useFonts } from "expo-font";
-import { useColorScheme } from "react-native";
-import { Stack, SplashScreen, useRouter } from "expo-router";
+import { Stack, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useIsOnboarded } from "../hooks/useIsOnboarded";
+import { ThemeProvider, useThemeColor } from "../context/useThemeColor";
+import { useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -26,7 +27,7 @@ export default function RootLayout() {
   }
 
   return (
-    <Fragment>
+    <ThemeProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen
           name="(main)"
@@ -35,6 +36,6 @@ export default function RootLayout() {
         <Stack.Screen name="index" options={{ animation: "fade" }} />
       </Stack>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
-    </Fragment>
+    </ThemeProvider>
   );
 }

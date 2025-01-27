@@ -1,15 +1,8 @@
-import {
-  Keyboard,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  useColorScheme,
-  View,
-} from "react-native";
+import { Keyboard, StyleSheet, TouchableWithoutFeedback, View } from "react-native";
 import { Container } from "../components/Container";
-import { Colors } from "../constants/Colors";
 import { FormHeader } from "../components/ui/FormHeader";
 import { OnboardingForm } from "../components/OnboardingForm";
-import ThemeView from "../components/ThemeView";
+import ThemeView from "../components/theme/ThemeView";
 import { useIsOnboarded } from "../hooks/useIsOnboarded";
 import { Redirect } from "expo-router";
 

@@ -1,17 +1,32 @@
 import { Stack } from "expo-router";
-import { View, Text } from "react-native";
+import { StyleSheet } from "react-native";
+import ThemeView from "../../components/theme/ThemeView";
+import { Container } from "../../components/Container";
+import { SwitchTheme } from "../../components/SwitchTheme";
 
 export default function SettingsScreen() {
   return (
-    <View>
+    <ThemeView style={styles.themeContainer}>
       <Stack.Screen
         options={{
-          title: "Ustawienia",
+          headerTitle: "Ustawienia",
+          headerTitleStyle: { fontSize: 20 },
           headerLeft: undefined,
           headerRight: undefined,
         }}
       />
-      <Text>Settings</Text>
-    </View>
+      <Container height="60%" style={styles.settingsContainer}>
+        <SwitchTheme />
+      </Container>
+    </ThemeView>
   );
 }
+
+const styles = StyleSheet.create({
+  themeContainer: {
+    alignItems: "center",
+    paddingTop: 25,
+    paddingBottom: 40,
+  },
+  settingsContainer: {},
+});

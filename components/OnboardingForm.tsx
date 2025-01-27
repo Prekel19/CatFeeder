@@ -1,15 +1,16 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { TextInput, useColorScheme, View, StyleSheet } from "react-native";
-import { ThemeButton } from "./ThemeButton";
+import { TextInput, View, StyleSheet } from "react-native";
+import { ThemeButton } from "./theme/ThemeButton";
 import { Colors } from "../constants/Colors";
-import { ThemeText } from "./ThemeText";
+import { ThemeText } from "./theme/ThemeText";
+import { useThemeColor } from "../context/useThemeColor";
 
 export const OnboardingForm = () => {
   const [name, setName] = useState<string>("");
   const [error, setError] = useState<string>("");
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
   const router = useRouter();
 
   const handlePress = async () => {

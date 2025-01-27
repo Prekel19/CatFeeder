@@ -1,6 +1,7 @@
 import { PropsWithChildren } from "react";
-import { DimensionValue, useColorScheme, View, ViewStyle } from "react-native";
+import { DimensionValue, View, ViewStyle } from "react-native";
 import { Colors } from "../constants/Colors";
+import { useThemeColor } from "../context/useThemeColor";
 
 type ContainerProps = PropsWithChildren & {
   height?: DimensionValue;
@@ -14,7 +15,7 @@ export const Container = ({
   flex = 1,
   style,
 }: ContainerProps) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
 
   return (
     <View

@@ -1,8 +1,8 @@
 import { StyleSheet, View } from "react-native";
-import { ThemeButton } from "../../components/ThemeButton";
+import { ThemeButton } from "../../components/theme/ThemeButton";
 import { CatStatus } from "../../components/CatStatus";
 import { CatFeedings } from "../../components/CatFeedings";
-import ThemeView from "../../components/ThemeView";
+import ThemeView from "../../components/theme/ThemeView";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addDoc, collection, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";

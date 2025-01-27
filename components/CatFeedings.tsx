@@ -8,7 +8,7 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
-import { ThemeText } from "./ThemeText";
+import { ThemeText } from "./theme/ThemeText";
 import { Container } from "./Container";
 import { useGetDate } from "../hooks/useGetDate";
 import { FlatList, StyleSheet } from "react-native";

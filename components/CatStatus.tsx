@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container } from "./Container";
-import { ThemeText } from "./ThemeText";
+import { ThemeText } from "./theme/ThemeText";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
 

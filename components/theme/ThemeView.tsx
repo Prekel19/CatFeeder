@@ -1,11 +1,12 @@
 import { PropsWithChildren } from "react";
-import { StyleProp, View, ViewStyle, useColorScheme } from "react-native";
-import { Colors } from "../constants/Colors";
+import { StyleProp, View, ViewStyle } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { useThemeColor } from "../../context/useThemeColor";
 
 type ThemeViewProps = PropsWithChildren & { style?: StyleProp<ViewStyle> };
 
 const ThemeView = ({ children, style }: ThemeViewProps) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
 
   const themeColor =
     colorScheme === "light" ? Colors.light.background : Colors.dark.background;

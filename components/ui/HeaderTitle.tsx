@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { ThemeText } from "../ThemeText";
+import { ThemeText } from "../theme/ThemeText";
 
 export const HeaderTitle = () => {
   return <ThemeText style={styles.title}>Cat Feeder</ThemeText>;

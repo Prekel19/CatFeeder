@@ -1,19 +1,19 @@
 import React from "react";
 import { Stack } from "expo-router";
 import { SettingsIcon } from "../../components/ui/SettingsIcon";
-import { useColorScheme } from "react-native";
+import { useThemeColor } from "../../context/useThemeColor";
 import { Colors } from "../../constants/Colors";
 import { HeaderTitle } from "../../components/ui/HeaderTitle";
 
 export default function MainLayout() {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
 
   return (
     <>
       <Stack
         screenOptions={{
           headerTitle: "",
-          headerBackTitle: "Powrót",
+          headerBackTitle: "Wróć",
           headerBackTitleStyle: {
             fontFamily: "Inter",
             fontSize: 18,

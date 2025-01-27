@@ -1,5 +1,5 @@
 import { View, StyleSheet } from "react-native";
-import { ThemeText } from "../ThemeText";
+import { ThemeText } from "../theme/ThemeText";
 
 export const FormHeader = () => {
   return (

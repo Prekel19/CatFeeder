@@ -1,12 +1,13 @@
-import { TextProps, Text, useColorScheme } from "react-native";
-import { Colors } from "../constants/Colors";
+import { TextProps, Text } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { useThemeColor } from "../../context/useThemeColor";
 
 type ThemeTextProps = TextProps & {
   type?: "default" | "special";
 };
 
 export const ThemeText = ({ style, children, type = "default" }: ThemeTextProps) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
 
   const text = {
     fontFamily: "Inter",

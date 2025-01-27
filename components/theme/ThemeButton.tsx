@@ -1,5 +1,6 @@
-import { Text, TouchableOpacity, useColorScheme, StyleSheet } from "react-native";
-import { Colors } from "../constants/Colors";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
+import { Colors } from "../../constants/Colors";
+import { useThemeColor } from "../../context/useThemeColor";
 
 type ThemeButtonProps = {
   title: string;
@@ -8,7 +9,7 @@ type ThemeButtonProps = {
 };
 
 export const ThemeButton = ({ title, onPress, size = "medium" }: ThemeButtonProps) => {
-  const colorScheme = useColorScheme();
+  const { colorScheme } = useThemeColor();
 
   const buttonStyle = {
     backgroundColor: Colors[colorScheme ?? "light"].button,
