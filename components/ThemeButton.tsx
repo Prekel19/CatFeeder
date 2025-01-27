@@ -3,10 +3,11 @@ import { Colors } from "../constants/Colors";
 
 type ThemeButtonProps = {
   title: string;
+  size?: "small" | "medium" | "large";
   onPress: () => void;
 };
 
-export const ThemeButton = ({ title, onPress }: ThemeButtonProps) => {
+export const ThemeButton = ({ title, onPress, size = "medium" }: ThemeButtonProps) => {
   const colorScheme = useColorScheme();
 
   const buttonStyle = {
@@ -14,7 +15,16 @@ export const ThemeButton = ({ title, onPress }: ThemeButtonProps) => {
   };
 
   return (
-    <TouchableOpacity style={[buttonStyle, styles.button]} onPress={onPress}>
+    <TouchableOpacity
+      style={[
+        buttonStyle,
+        styles.button,
+        size === "small" && styles.small,
+        size === "medium" && styles.medium,
+        size === "large" && styles.large,
+      ]}
+      onPress={onPress}
+    >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>
   );
@@ -26,6 +36,16 @@ const styles = StyleSheet.create({
     width: "100%",
     padding: 15,
     borderRadius: 8,
+  },
+  small: {
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+  },
+  medium: {
+    padding: 15,
+  },
+  large: {
+    padding: 20,
   },
   text: {
     fontFamily: "Inter",

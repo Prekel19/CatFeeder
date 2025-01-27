@@ -1,17 +1,19 @@
-import { useEffect } from "react";
+import { Fragment, useEffect } from "react";
 import { useFonts } from "expo-font";
 import { useColorScheme } from "react-native";
-import { Slot, SplashScreen } from "expo-router";
+import { Stack, SplashScreen, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import ThemeView from "../components/ThemeView";
+import { useIsOnboarded } from "../hooks/useIsOnboarded";
 
 SplashScreen.preventAutoHideAsync();
 
-export default function MainLayout() {
+export default function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     Inter: require("../assets/fonts/Inter-Regular.ttf"),
   });
+
+  const isOnboarded = useIsOnboarded();
 
   useEffect(() => {
     if (loaded) {
@@ -24,9 +26,15 @@ export default function MainLayout() {
   }
 
   return (
-    <ThemeView>
-      <Slot />
+    <Fragment>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="(main)"
+          options={{ animation: isOnboarded ? "none" : "default" }}
+        />
+        <Stack.Screen name="index" options={{ animation: "fade" }} />
+      </Stack>
       <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
-    </ThemeView>
+    </Fragment>
   );
 }

@@ -1,31 +1,38 @@
 import { PropsWithChildren } from "react";
-import { DimensionValue, View } from "react-native";
+import { DimensionValue, useColorScheme, View, ViewStyle } from "react-native";
+import { Colors } from "../constants/Colors";
 
 type ContainerProps = PropsWithChildren & {
-  height: DimensionValue;
-  color: string;
-  flexGrow?: boolean;
+  height?: DimensionValue;
+  flex?: number;
+  style?: ViewStyle;
 };
 
 export const Container = ({
   children,
-  height,
-  color,
-  flexGrow = true,
+  height = "100%",
+  flex = 1,
+  style,
 }: ContainerProps) => {
+  const colorScheme = useColorScheme();
+
   return (
     <View
-      style={{
-        backgroundColor: color,
-        width: "90%",
-        maxHeight: height,
-        alignItems: "center",
-        flex: flexGrow ? 1 : 0,
-        padding: 24,
-        borderRadius: 12,
-        boxShadow:
-          "0px 1px 2px 0px rgba(0, 0, 0, 0.05), 0px 0px 0px 0px rgba(0, 0, 0, 0.00), 0px 0px 0px 0px rgba(0, 0, 0, 0.00)",
-      }}
+      style={[
+        style,
+        {
+          backgroundColor: Colors[colorScheme ?? "light"].primary,
+          width: "90%",
+          maxHeight: height,
+          alignItems: "center",
+          flex: flex,
+          padding: 24,
+          borderColor: colorScheme === "dark" ? Colors.dark.border : "unset",
+          borderWidth: colorScheme === "dark" ? 1 : 0,
+          borderRadius: 12,
+          boxShadow: Colors[colorScheme ?? "light"].boxShadow,
+        },
+      ]}
     >
       {children}
     </View>

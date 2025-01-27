@@ -1,12 +1,35 @@
 import { TextProps, Text, useColorScheme } from "react-native";
 import { Colors } from "../constants/Colors";
 
-export const ThemeText = ({ style, children }: TextProps) => {
+type ThemeTextProps = TextProps & {
+  type?: "default" | "special";
+};
+
+export const ThemeText = ({ style, children, type = "default" }: ThemeTextProps) => {
   const colorScheme = useColorScheme();
 
-  const textColor = {
+  const text = {
+    fontFamily: "Inter",
+  };
+
+  const defaultColor = {
     color: Colors[colorScheme ?? "light"].text,
   };
 
-  return <Text style={[textColor, style]}>{children}</Text>;
+  const special = {
+    color: Colors[colorScheme ?? "light"].secondary,
+  };
+
+  return (
+    <Text
+      style={[
+        text,
+        style,
+        type === "default" && defaultColor,
+        type === "special" && special,
+      ]}
+    >
+      {children}
+    </Text>
+  );
 };

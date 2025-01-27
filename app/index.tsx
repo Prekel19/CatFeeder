@@ -1,24 +1,40 @@
-import { StyleSheet, useColorScheme } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  useColorScheme,
+  View,
+} from "react-native";
 import { Container } from "../components/Container";
 import { Colors } from "../constants/Colors";
 import { FormHeader } from "../components/ui/FormHeader";
 import { OnboardingForm } from "../components/OnboardingForm";
-import { OnboardNavigator } from "../components/OnboardNavigator";
+import ThemeView from "../components/ThemeView";
+import { useIsOnboarded } from "../hooks/useIsOnboarded";
+import { Redirect } from "expo-router";
 
 const App = () => {
-  const colorScheme = useColorScheme();
+  const { loading, isOnboarded } = useIsOnboarded();
+
+  if (loading) {
+    return null;
+  }
+
+  if (isOnboarded) {
+    return <Redirect href="/home" />;
+  }
 
   return (
-    <OnboardNavigator>
-      <Container
-        height="100%"
-        flexGrow={false}
-        color={Colors[colorScheme ?? "light"].primary}
-      >
-        <FormHeader />
-        <OnboardingForm />
-      </Container>
-    </OnboardNavigator>
+    <ThemeView>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <View style={styles.container}>
+          <Container flex={0}>
+            <FormHeader />
+            <OnboardingForm />
+          </Container>
+        </View>
+      </TouchableWithoutFeedback>
+    </ThemeView>
   );
 };
 
