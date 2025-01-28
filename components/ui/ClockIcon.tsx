@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Svg, Path, G, Defs, ClipPath, Rect } from "react-native-svg";
 import { Colors } from "../../constants/Colors";
-import { useThemeColor } from "../../context/useThemeColor";
+import { useThemeColor } from "../../context/ThemeContext";
 
 export const ClockIcon = () => {
   const { colorScheme } = useThemeColor();

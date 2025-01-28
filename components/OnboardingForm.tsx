@@ -4,8 +4,8 @@ import { useState } from "react";
 import { TextInput, View, StyleSheet } from "react-native";
 import { ThemeButton } from "./theme/ThemeButton";
 import { Colors } from "../constants/Colors";
-import { ThemeText } from "./theme/ThemeText";
-import { useThemeColor } from "../context/useThemeColor";
+import { useThemeColor } from "../context/ThemeContext";
+import { Text } from "react-native";
 
 export const OnboardingForm = () => {
   const [name, setName] = useState<string>("");
@@ -40,10 +40,11 @@ export const OnboardingForm = () => {
           },
         ]}
         placeholder="Podaj swoje imię"
+        placeholderTextColor="#CCC"
         value={name}
         onChangeText={setName}
       />
-      {error && <ThemeText>{error}</ThemeText>}
+      <Text style={[styles.error, error && { paddingBottom: 10 }]}>{error}</Text>
       <ThemeButton title="Dalej" onPress={() => handlePress()} />
     </View>
   );
@@ -52,11 +53,16 @@ export const OnboardingForm = () => {
 const styles = StyleSheet.create({
   form: {
     width: "100%",
-    gap: 30,
+    gap: 10,
   },
   input: {
     padding: 12,
     borderWidth: 1,
     borderRadius: 8,
+  },
+  error: {
+    fontSize: 12,
+    color: "#EF4444",
+    paddingLeft: 5,
   },
 });

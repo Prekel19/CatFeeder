@@ -3,7 +3,7 @@ import { useFonts } from "expo-font";
 import { Stack, SplashScreen } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useIsOnboarded } from "../hooks/useIsOnboarded";
-import { ThemeProvider, useThemeColor } from "../context/useThemeColor";
+import { ThemeProvider, useThemeColor } from "../context/ThemeContext";
 import { useColorScheme } from "react-native";
 
 SplashScreen.preventAutoHideAsync();

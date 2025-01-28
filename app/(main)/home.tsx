@@ -3,27 +3,15 @@ import { ThemeButton } from "../../components/theme/ThemeButton";
 import { CatStatus } from "../../components/CatStatus";
 import { CatFeedings } from "../../components/CatFeedings";
 import ThemeView from "../../components/theme/ThemeView";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { addDoc, collection, doc, Timestamp, updateDoc } from "firebase/firestore";
 import { db } from "../../config/firebase";
-import { useEffect, useState } from "react";
 import { useGetDate } from "../../hooks/useGetDate";
+import { useGetUserName } from "../../context/UserNameContext";
 
 export default function HomeScreen() {
-  const [userName, setUserName] = useState<string>("");
   const feedingsCollection = collection(db, "feedings");
   const catStatusDoc = doc(db, "catStatus", "aURcv4VRGxG0zmC6giuL");
-
-  useEffect(() => {
-    const getName = async () => {
-      const name: string | null = await AsyncStorage.getItem("name");
-      if (name) {
-        setUserName(name);
-      }
-    };
-
-    getName();
-  }, []);
+  const { userName } = useGetUserName();
 
   const feedCat = async () => {
     const date: Date = new Date();

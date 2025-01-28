@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
 import { StyleProp, View, ViewStyle } from "react-native";
 import { Colors } from "../../constants/Colors";
-import { useThemeColor } from "../../context/useThemeColor";
+import { useThemeColor } from "../../context/ThemeContext";
 
 type ThemeViewProps = PropsWithChildren & { style?: StyleProp<ViewStyle> };
 

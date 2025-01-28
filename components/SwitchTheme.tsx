@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Switch, View } from "react-native";
-import { useThemeColor } from "../context/useThemeColor";
+import { useThemeColor } from "../context/ThemeContext";
 import { ThemeText } from "./theme/ThemeText";
 
 export const SwitchTheme = () => {

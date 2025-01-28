@@ -1,7 +1,7 @@
 import { PropsWithChildren } from "react";
-import { DimensionValue, View, ViewStyle } from "react-native";
+import { DimensionValue, Platform, View, ViewStyle } from "react-native";
 import { Colors } from "../constants/Colors";
-import { useThemeColor } from "../context/useThemeColor";
+import { useThemeColor } from "../context/ThemeContext";
 
 type ContainerProps = PropsWithChildren & {
   height?: DimensionValue;
@@ -31,7 +31,9 @@ export const Container = ({
           borderColor: colorScheme === "dark" ? Colors.dark.border : "unset",
           borderWidth: colorScheme === "dark" ? 1 : 0,
           borderRadius: 12,
-          boxShadow: Colors[colorScheme ?? "light"].boxShadow,
+          ...(Platform.OS === "ios" && {
+            boxShadow: Colors[colorScheme ?? "light"].boxShadow,
+          }),
         },
       ]}
     >

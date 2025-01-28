@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
-import { useThemeColor } from "../../context/useThemeColor";
+import { useThemeColor } from "../../context/ThemeContext";
 
 type ThemeButtonProps = {
   title: string;

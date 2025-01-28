@@ -1,41 +1,24 @@
 import { Stack } from "expo-router";
-import { StyleSheet, TextInput, View } from "react-native";
+import { Keyboard, StyleSheet, TextInput, View } from "react-native";
 import { Container } from "../../components/Container";
 import { SwitchTheme } from "../../components/SwitchTheme";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Colors } from "../../constants/Colors";
-import { useThemeColor } from "../../context/useThemeColor";
+import { useThemeColor } from "../../context/ThemeContext";
 import ThemeView from "../../components/theme/ThemeView";
 import { ThemeButton } from "../../components/theme/ThemeButton";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemeText } from "../../components/theme/ThemeText";
+import { useGetUserName } from "../../context/UserNameContext";
 
 export default function SettingsScreen() {
-  const [name, setName] = useState<string>("");
+  const { userName, updateUserName } = useGetUserName();
+  const [name, setName] = useState<string>(userName);
   const { colorScheme } = useThemeColor();
-
-  useEffect(() => {
-    const setDefaultName = async () => {
-      try {
-        const fetchedName = await AsyncStorage.getItem("name");
-        if (fetchedName) {
-          setName(fetchedName);
-        }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    setDefaultName();
-  }, []);
 
   const handlePress = async () => {
     if (name.length > 0) {
-      try {
-        await AsyncStorage.setItem("name", name);
-      } catch (err) {
-        console.log(err);
-      }
+      updateUserName(name);
+      Keyboard.dismiss();
     }
   };
 
@@ -49,7 +32,7 @@ export default function SettingsScreen() {
           headerRight: undefined,
         }}
       />
-      <Container height="60%" style={styles.settingsContainer}>
+      <Container height="40%" style={styles.settingsContainer}>
         <SwitchTheme />
         <View style={styles.inputContainer}>
           <ThemeText style={styles.title}>Imię</ThemeText>
@@ -59,7 +42,6 @@ export default function SettingsScreen() {
             style={[
               styles.input,
               {
-                // borderColor: Colors[colorScheme ?? "light"].border,
                 color: Colors[colorScheme ?? "light"].text,
               },
             ]}

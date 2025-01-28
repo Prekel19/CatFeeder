@@ -1,15 +1,16 @@
-import React from "react";
 import { Stack } from "expo-router";
 import { SettingsIcon } from "../../components/ui/SettingsIcon";
-import { useThemeColor } from "../../context/useThemeColor";
+import { useThemeColor } from "../../context/ThemeContext";
 import { Colors } from "../../constants/Colors";
 import { HeaderTitle } from "../../components/ui/HeaderTitle";
+import { UserNameProvider } from "../../context/UserNameContext";
+import { StatusBar } from "expo-status-bar";
 
 export default function MainLayout() {
   const { colorScheme } = useThemeColor();
 
   return (
-    <>
+    <UserNameProvider>
       <Stack
         screenOptions={{
           headerTitle: "",
@@ -30,8 +31,10 @@ export default function MainLayout() {
       >
         <Stack.Screen name="home" />
         <Stack.Screen name="settings" />
+        <Stack.Screen name="feeding/[id]" />
         <Stack.Screen name="+not-found" />
       </Stack>
-    </>
+      <StatusBar style={colorScheme === "light" ? "dark" : "light"} />
+    </UserNameProvider>
   );
 }

@@ -71,7 +71,9 @@ export const CatFeedings = () => {
       <FlatList
         data={feedingsList}
         style={{ width: "100%" }}
-        renderItem={({ item }) => <ListItem name={item.name} time={item.time} />}
+        renderItem={({ item }) => (
+          <ListItem id={item.id} name={item.name} time={item.time} />
+        )}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={<ThemeText>Brak danych do wyświetlenia</ThemeText>}
         showsVerticalScrollIndicator={false}
