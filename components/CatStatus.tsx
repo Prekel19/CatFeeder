@@ -3,6 +3,7 @@ import { Container } from "./Container";
 import { ThemeText } from "./theme/ThemeText";
 import { doc, onSnapshot, updateDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import { AppState } from "react-native";
 
 interface ICatStatus {
   id: string;
@@ -17,36 +18,42 @@ export const CatStatus = () => {
   useEffect(() => {
     const unsubscribe = onSnapshot(catStatusDoc, (snapshot) => {
       if (snapshot.exists()) {
-        const docData = snapshot.data();
-        const updatedStatus = {
+        setCatStatus({
           id: snapshot.id,
-          isHungry: docData.isHungry,
-          lastFed: docData.lastFed,
-        } as ICatStatus;
-
-        setCatStatus(updatedStatus);
+          isHungry: snapshot.data().isHungry,
+          lastFed: snapshot.data().lastFed,
+        });
       }
     });
+
+    checkCatStatus();
 
     return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (catStatus) {
-      const now = Date.now();
-      const hoursSinceFed = (now - catStatus.lastFed) / (1000 * 60 * 60); // Konwersja milisekund na godziny
-
-      if (!catStatus.isHungry && hoursSinceFed >= 6) {
-        updateCatStatus(true);
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        checkCatStatus();
       }
-    }
+    });
+
+    return () => subscription.remove();
   }, [catStatus]);
 
-  const updateCatStatus = async (newStatus: boolean) => {
+  const checkCatStatus = async () => {
+    if (catStatus) {
+      const now = Date.now();
+      const hoursSinceFed = (now - catStatus.lastFed) / (1000 * 60 * 60);
+      if (!catStatus.isHungry && hoursSinceFed >= 6) {
+        updateCatStatus();
+      }
+    }
+  };
+
+  const updateCatStatus = async () => {
     try {
-      await updateDoc(catStatusDoc, {
-        isHungry: newStatus,
-      });
+      await updateDoc(catStatusDoc, { isHungry: true });
     } catch (error) {
       console.error("Błąd aktualizacji statusu kota:", error);
     }

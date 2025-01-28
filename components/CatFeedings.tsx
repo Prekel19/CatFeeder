@@ -11,7 +11,7 @@ import { db } from "../config/firebase";
 import { ThemeText } from "./theme/ThemeText";
 import { Container } from "./Container";
 import { useGetDate } from "../hooks/useGetDate";
-import { FlatList, StyleSheet } from "react-native";
+import { AppState, FlatList, StyleSheet } from "react-native";
 import { ListItem } from "./ListItem";
 
 interface IFeedings {
@@ -25,10 +25,10 @@ interface IFeedings {
 
 export const CatFeedings = () => {
   const [feedingsList, setFeedingsList] = useState<IFeedings[]>([]);
+  const [date, setDate] = useState(() => useGetDate());
   const feedingsCollection = collection(db, "feedings");
 
   useEffect(() => {
-    const date = useGetDate();
     const feedingsQuery = query(
       feedingsCollection,
       where("todaysDate", "==", date),
@@ -50,6 +50,19 @@ export const CatFeedings = () => {
     });
 
     return () => unsubscribe();
+  }, [date]);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      if (nextAppState === "active") {
+        const currentDate = useGetDate();
+        if (date !== currentDate) {
+          setDate(currentDate);
+        }
+      }
+    });
+
+    return () => subscription.remove();
   }, []);
 
   return (
@@ -60,6 +73,7 @@ export const CatFeedings = () => {
         style={{ width: "100%" }}
         renderItem={({ item }) => <ListItem name={item.name} time={item.time} />}
         keyExtractor={(item) => item.id}
+        ListEmptyComponent={<ThemeText>Brak danych do wyświetlenia</ThemeText>}
         showsVerticalScrollIndicator={false}
       />
     </Container>
